@@ -1,0 +1,19 @@
+
+table.bor, th.bor, td.bor {
+    font-size: 12px;
+    border: 1px solid #e5e5e5;
+}
+th, td {
+    padding: 0px 5px;
+}
+td.cat {
+    min-width: 100px;
+    max-width: 300px;
+}
+td.no-data {
+    padding: 5px;
+    text-align: center;
+}
+.select2-container {
+   width: 100% !important;
+}
