@@ -387,7 +387,8 @@ class Keuangan extends MY_Controller {
         $this->template->view('keuangan/list_total_pengeluaran_v',$data);
     }
 
-    public function listTotalPengeluaran() {
+    public function listTotalPengeluaran() 
+    {
         $data['dokter'] = $this->InsentifModel->listInsentifDokter();
 		$data['perawat'] = $this->InsentifModel->listInsentifPerawat();
 

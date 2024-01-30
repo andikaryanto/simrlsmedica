@@ -44,8 +44,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Dokter</th>
-                                    <th>Jumlah Hari</th>     
-                                    <th>Insentif Shift /Hari</th>                    
+                                    <!-- <th>Jumlah Hari</th>     
+                                    <th>Insentif Shift /Hari</th>                     -->
                                     <th>Total Insentif Shift</th>                            
                                     <th>Aksi</th>
                                 </tr>
@@ -55,14 +55,17 @@
                                 <tr> 
                                     <td> <?php echo $no; ?></td>
                                     <td> <?php echo ucwords($row->nama); ?></td>                             
-                                    <td> <?php echo ucwords($row->hari); ?></td>                             
-                                    <td>Rp <?php echo number_format($row->shift,2,',','.'); ?></td>                                
+                                    <!-- <td> <?php echo ucwords($row->hari); ?></td>                             
+                                    <td>Rp <?php echo number_format($row->shift,2,',','.'); ?></td>                                 -->
                                     <td>Rp <?php echo number_format($row->total_insentif,2,',','.'); ?></td>                                
                                     <td>
                                         <a href="<?php  echo base_url(); ?>Insentif/DetailInsentifDokter/<?php echo $row->dokter_id; ?>"> <button type="button" class="btn btn-warning"><i class="fa fa-pencil"></i>Detail</button></a>
                                     </td>
                                 </tr>   
-                            <?php $grandtotal_tindakan += $row->total_insentif; } ?>
+                            <?php $grandtotal_tindakan += $row->total_insentif; 
+                        
+                                $no++;
+                            } ?>
                                 <tr >
                                     <td colspan="4" align="right"><strong>Total Insentif Dokter : </strong></td>
                                     <td><strong><?= number_format($grandtotal_tindakan,2,',','.'); ?></strong></td>
@@ -101,8 +104,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Perawat</th>
-                                    <th>Jumlah Hari</th>     
-                                    <th>Insentif Shift /Hari</th>                    
+                                    <!-- <th>Jumlah Hari</th>     
+                                    <th>Insentif Shift /Hari</th>                     -->
                                     <th>Total Insentif Shift</th>                            
                                     <th>Aksi</th>
                                 </tr>
@@ -112,14 +115,16 @@
                                 <tr> 
                                     <td> <?php echo $no; ?></td>
                                     <td> <?php echo ucwords($row->nama); ?></td>                             
-                                    <td> <?php echo ucwords($row->hari); ?></td>                             
-                                    <td>Rp <?php echo number_format($row->shift,2,',','.'); ?></td>                                
+                                    <!-- <td> <?php echo ucwords($row->hari); ?></td>                             
+                                    <td>Rp <?php echo number_format($row->shift,2,',','.'); ?></td>                                 -->
                                     <td>Rp <?php echo number_format($row->total_insentif,2,',','.'); ?></td>                                
                                     <td>
-                                        <a href="<?php  echo base_url(); ?>Insentif/DetailInsentifDokter/<?php echo $row->dokter_id; ?>"> <button type="button" class="btn btn-warning"><i class="fa fa-pencil"></i>Detail</button></a>
+                                        <a href="<?php  echo base_url(); ?>Insentif/DetailInsentifDokter/<?php echo $row->perawat_id; ?>"> <button type="button" class="btn btn-warning"><i class="fa fa-pencil"></i>Detail</button></a>
                                     </td>
                                 </tr>   
-                            <?php $grandtotal_tindakan += $row->total_insentif; } ?>
+                            <?php $grandtotal_tindakan += $row->total_insentif; 
+                                $no++;
+                            } ?>
                                 <tr >
                                     <td colspan="4" align="right"><strong>Total Insentif Perawat : </strong></td>
                                     <td><strong><?= number_format($grandtotal_tindakan,2,',','.'); ?></strong></td>

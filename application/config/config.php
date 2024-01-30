@@ -24,7 +24,7 @@ date_default_timezone_set("Asia/Jakarta");
 |
 */
 //$config['base_url'] = 'http://localhost/ujicoba/';
-$config['base_url'] = 'https://sim.rlsmedica.com/';
+$config['base_url'] = 'http://simrlsmedica.test/';
 
 
 /*
