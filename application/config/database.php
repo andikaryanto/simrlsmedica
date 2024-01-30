@@ -70,16 +70,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'online';
+$active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '',
-	'database' => 'simklinik_gigi',
+	'password' => 'root',
+	'database' => 'simklin1_rlsmedica',
 	'dbdriver' => 'mysqli',
+	'port' => '3466',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

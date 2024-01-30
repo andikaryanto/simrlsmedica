@@ -23,7 +23,7 @@ class InsentifModel extends CI_Model {
                 ");
     }
 
-    public function listInsentifDokter($dari, $sampai)
+    public function listInsentifDokter($dari = null, $sampai = null)
     {
         return $this->db->query("
                     select
@@ -36,7 +36,6 @@ class InsentifModel extends CI_Model {
                                 join pasien on pasien.id = p.pasien_id and pasien.is_active = 1
                                 where dtp.is_active = 1
                                 and p.dokter_id = u.id
-                                and (DATE(p.waktu_pemeriksaan) between '$dari' and '$sampai')
                                 group by p.dokter_id
                             ), 0)
                         ) as total_insentif

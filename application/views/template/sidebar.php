@@ -244,7 +244,7 @@ function spirometri($u) {
                 <i class="fa fa-circle-o"></i> <?=$value['label']?> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
             </a>
             <ul class="treeview-menu" <?= (in_array($ci->uri->segment(2), ['listPenyakit', 'listTarifTindakan']) && $ci->uri->segment(3) == $key) ? 'style="display:block;"' : ''; ?>>
-                <?php if ($key == 'umum') : ?>
+                <?php if ($key == 'umum' || $key == 'rawat luka' || $key='sunat') : ?>
                     <li class="<?= ($ci->uri->segment(2) == 'listPenyakit' && $ci->uri->segment(3) == $key) ? 'active' : ''; ?>">
                         <a href="<?= base_url();?>MasterPoli/listPenyakit/<?=$key?>"><i class="fa fa-circle-o"></i>
                             Jenis Penyakit

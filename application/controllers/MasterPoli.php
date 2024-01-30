@@ -66,7 +66,7 @@ class MasterPoli extends MY_Controller {
     }
 
     public function listPenyakit() {
-        $data['jenis'] = $this->uri->segment(3);
+        $data['jenis'] = str_replace('%20', ' ', $this->uri->segment(3));
 
         $data_poli = $this->config->item('poli');
         if(isset($data_poli[$data['jenis']])){
@@ -117,7 +117,7 @@ class MasterPoli extends MY_Controller {
             }
         }
         else {
-            $data['jenis'] = $this->uri->segment(3);
+            $data['jenis'] = str_replace('%20', ' ', $this->uri->segment(3));
             if ($data['jenis'] == 'umum') {
                 $data['title'] = 'Tambah Penyakit Umum';
             }
@@ -132,6 +132,12 @@ class MasterPoli extends MY_Controller {
             }
             else if ($data['jenis'] == 'laboratorium') {
                 $data['title'] = 'Tambah Layanan Laboratorium';
+            }
+            else if ($data['jenis'] == 'laboratorium') {
+                $data['title'] = 'Tambah Layanan Laboratorium';
+            }
+            else if ($data['jenis'] == 'rawat luka') {
+                $data['title'] = 'Tambah Penyakit Rawat Luka';
             }
 
             $data_poli = $this->config->item('poli');
