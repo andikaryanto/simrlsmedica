@@ -84,6 +84,7 @@ class Pendaftaran extends MY_Controller {
             }
         }
 
+        $data['jenis_pendaftaran'] = $this->PendaftaranModel->getJenisPendaftaran();
         $data['jaminan'] = $this->config->item('pendaftaran');
         $data['listPendaftaran'] = $pp;
 
