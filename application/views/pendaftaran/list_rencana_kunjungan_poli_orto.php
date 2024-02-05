@@ -137,14 +137,14 @@
     const all_pendaftaran = <?= json_encode($listPendaftaran) ?>;
 
     let tglDaftar = '<?= date('Y-m-d') ?>',
-        poli, pnsite;
+        poli, onsite;
     $('#tgl-daftar').change(function() {
         tglDaftar = $(this).val() + ' 00:00:00'
         doFilter()
     })
-    $('#jenis_pendaftaran').change(function() {
-        poli = $(this).val()
-        doFilter()
+    $('#jenis_layanan').change(function() {
+        poli = $(this).val();
+        doFilter();
     });
     $('#tipe_layanan').change(function() {
         onsite = $(this).val()
@@ -173,29 +173,12 @@
     }
 
     const doFilter = () => {
-        // tblResuma.clear().draw()
-        // console.log(resume)
-        // console.log(all_pendaftaran.map(v => v.waktu_pendaftaran))
-        // resume
-        //     .filter(v => !tglDaftar ? true : toIndoDateName(v.due_date) === toIndoDateName(tglDaftar))
-        //     .filter(v => !poli ? true : +v.jenis_pendaftaran_id === +poli)
-        //     // .filter(v => !onsite ? true : +v.tipe_layanan === +onsite)
-        //     .forEach((v, k) => {
-        //         const html = `
-        //             <tr>
-        //                 <td>${v.nama} ${v.nama_sub ?? ''}</td>
-        //                 <td>${v.total}</td>
-        //             </tr>
-        //         `
-        //         tblResuma.row.add($(html)).draw()
-        //     })
 
         tbl.clear().draw()
         all_pendaftaran
-            // .filter(v => !tglDaftar ? true : toIndoDateName(v.waktu_pendaftaran) === toIndoDateName(tglDaftar))
-            .filter(v => !poli ? true : v.jenis_pendaftaran_id === poli)
+            .filter(v => !tglDaftar ? true : toIndoDateName(v.waktu_pendaftaran) == toIndoDateName(tglDaftar))
+            .filter(v => !poli ? true : v.jenis_pendaftaran_id == poli)
             .filter(v => !onsite ? true : v.tipe_layanan == onsite)
-            // .filter(v => !sifat ? true : +v.sifat === +sifat)
             .forEach((v, k) => {
                 const html = `
                         <tr>
