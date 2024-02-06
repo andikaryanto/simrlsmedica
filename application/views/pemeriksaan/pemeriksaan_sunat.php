@@ -217,7 +217,19 @@ include BASEPATH.'../application/views/template/InputBuilder.php';
                                     <h4 for="hasil_penunjang_laboratorium" class="col-sm-3 control-label">
                                         <b>Jadwal Perawatan</b>
                                     </h4>
-                                </div>
+                                </div>                                
+                                <?php
+                                sel('diagnosis_jenis_penyakit[]', 'Diagnosis Jenis Penyakit')
+                                     ->placeholder('Pilih penyakit untuk pasien')
+                                     ->options($penyakit->result())
+                                     ->display(function ($value) {
+                                         return $value->kode . ' - ' . $value->nama;
+                                     })
+                                     ->selectedOptionIds(array_map(function ($v) {
+                                         return $v->penyakit_id;
+                                     }, $penyakit_pasien->result()))
+                                     ->build();
+                                ?>
                                 <div>
                                     <div class="form-group ">
                                         <label for="form[next]" class="col-sm-3 control-label">Perawatan Selanjutnya</label>
