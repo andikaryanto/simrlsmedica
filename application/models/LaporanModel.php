@@ -101,13 +101,18 @@ class LaporanModel extends CI_Model {
         return  $this->db->get();
     }
 
-    public function getJumlahPasien($start_date,$end_date)
+    public function getJumlahPasien($start_date,$end_date, $jenis_pendaftaran = null)
     {
-        return  $this->db->query("
-            SELECT count(distinct pp.pasien) as jumlah, pp.jaminan as nama, jp.id as id_jp from jenis_pendaftaran jp 
-            join pendaftaran_pasien pp ON jp.id = pp.jenis_pendaftaran_id 
-            WHERE jp.is_active = 1 AND jp.status = 1 AND pp.waktu_pendaftaran >= '$start_date' AND pp.waktu_pendaftaran <= '$end_date' 
-            group by pp.jaminan");
+        $query = "
+        SELECT count(distinct pp.pasien) as jumlah, jp.nama as nama, jp.id as id_jp from jenis_pendaftaran jp 
+        join pendaftaran_pasien pp ON jp.id = pp.jenis_pendaftaran_id 
+        WHERE jp.is_active = 1 AND jp.status = 1 AND pp.waktu_pendaftaran >= '$start_date' AND pp.waktu_pendaftaran <= '$end_date' ";
+
+        if($jenis_pendaftaran) {
+            $query .= " AND jp.id = $jenis_pendaftaran";
+        }
+        $query.= " group by jp.id";
+        return  $this->db->query($query);
     }
 
     public function getJumlahPasien_backup($start_date,$end_date)
@@ -128,7 +133,7 @@ class LaporanModel extends CI_Model {
                                 join pendaftaran_pasien pp ON pp.pasien = p.id  AND pp.is_active = '1'
                                 JOIN pemeriksaan pem ON pem.pendaftaran_id = pp.id
                                 join jenis_pendaftaran jp ON jp.id = pp.jenis_pendaftaran_id AND jp.is_active = '1' AND jp.status = 1
-                                join user u ON u.id = pp.dokter AND u.is_active = '1'
+                                join user u ON u.id = pem.dokter_id AND u.is_active = '1'
                                 WHERE pp.waktu_pendaftaran >= '$start_date' AND pp.waktu_pendaftaran <= '$end_date' $w");
     }
 
