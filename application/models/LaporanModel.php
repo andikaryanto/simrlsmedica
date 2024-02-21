@@ -67,9 +67,25 @@ class LaporanModel extends CI_Model {
         return $this->db->get();
     }
 
-    public function getKunjunganPasien($start_date,$end_date)
+    public function getListPendaftaranByJenis($start_date,$end_date, $jenis_pendaftaran)
     {
-        $this->db->select('jp.id, pp.jaminan as nama, count(pp.jaminan) as jumlah' );
+        $this->db->select('pp.*, p.id pasien_id, pem.id as pemeriksaan_id, p.nama nama_pasien, p.no_rm, p.jk, p.usia, p.alamat, u.nama nama_dokter, jp.id as jenis_pendaftaran_id, jp.nama jenis_pendaftaran' );
+        $this->db->from('pendaftaran_pasien pp');
+        $this->db->join('pasien p', 'p.id = pp.pasien and p.is_active = 1');
+        $this->db->join('jenis_pendaftaran jp', 'jp.id = pp.jenis_pendaftaran_id and jp.is_active = 1');
+        $this->db->join('pemeriksaan pem', 'pp.id = pem.pendaftaran_id');
+        $this->db->join('user u', 'u.id = pem.dokter_id and u.is_active = 1');
+        $this->db->where('pp.is_active', '1' );
+        $this->db->where('pp.waktu_pendaftaran >=', $start_date );
+        $this->db->where('pp.waktu_pendaftaran <=', $end_date );
+        if ($jenis_pendaftaran) 
+            $this->db->where('jp.id', $jenis_pendaftaran);
+        return $this->db->get();
+    }
+
+    public function getKunjunganPasien($start_date,$end_date, $jenis_pendaftaran = null)
+    {
+        $this->db->select('jp.id, jp.nama as nama, count(pp.jaminan) as jumlah' );
         $this->db->from('pendaftaran_pasien pp');
         $this->db->join('pasien p', 'p.id = pp.pasien and p.is_active = 1');
         $this->db->join('user u', 'u.id = pp.dokter and u.is_active = 1');
@@ -77,7 +93,11 @@ class LaporanModel extends CI_Model {
         $this->db->where('pp.is_active', '1' );
         $this->db->where('pp.waktu_pendaftaran >=', $start_date );
         $this->db->where('pp.waktu_pendaftaran <=', $end_date );
-        $this->db->group_by('pp.jaminan');
+
+        if ($jenis_pendaftaran) 
+        $this->db->where('jp.id', $jenis_pendaftaran);
+
+        $this->db->group_by('jp.id');
         return  $this->db->get();
     }
 

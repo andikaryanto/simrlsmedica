@@ -529,83 +529,15 @@ $config['proxy_ips'] = '';
 
 $config['poli'] = array(
     'umum' => array(
+        'id' => 20,
         'kode' => array('G'),
         'label' => 'Poli Umum',
         'penyakit' => 'Umum',
         'column' => 'is_umum'
     ),
-
-//    'gigi' => array(
-//        'kode' => array('PG', 'BPJS-PG'),
-//        'label' => 'Poli Gigi',
-//        'penyakit' => 'Gigi',
-//        'column' => 'is_gigi'
-//    ),
-
-//    'mata' => array(
-//        'kode' => array('PM', 'BPJS-PM'),
-//        'label' => 'Poli Mata',
-//        'penyakit' => 'Mata',
-//        'column' => 'is_mata'
-//    ),
-
-//    'kulit' => array(
-//        'kode' => array('PKK', 'BPJS-PKK'),
-//        'label' => 'Poli Kulit dan Kelamin',
-//        'penyakit' => 'Kulit',
-//        'column' => 'is_kulit'
-//    ),
-
-//    'tht' => array(
-//        'kode' => array('PTHT', 'BPJS-PTHT'),
-//        'label' => 'Poli THT',
-//        'penyakit' => 'THT',
-//        'column' => 'is_tht'
-//    ),
-
-//    'anak' => array(
-//        'kode' => array('PA', 'BPJS-PA'),
-//        'label' => 'Poli Anak',
-//        'penyakit' => 'Anak',
-//        'column' => 'is_anak'
-//    ),
-//
-//    'obgyn' => array(
-//        'kode' => array('PO', 'BPJS-PO'),
-//        'label' => 'Poli Obgyn',
-//        'penyakit' => 'obgyn',
-//        'column' => 'is_obgyn'
-//    ),
-//
-//    'jiwa' => array(
-//        'kode' => array('PJ', 'BPJS-PJ'),
-//        'label' => 'Poli Jiwa',
-//        'penyakit' => 'Jiwa',
-//        'column' => 'is_jiwa'
-//    ),
-//
-//    'syaraf' => array(
-//        'kode' => array('PS', 'BPJS-PS'),
-//        'label' => 'Poli Syaraf',
-//        'penyakit' => 'syaraf',
-//        'column' => 'is_syaraf'
-//    ),
-
-//    'penyakit-dalam' => array(
-//        'kode' => array('PD', 'BPJS-PD'),
-//        'label' => 'Poli Penyakit Dalam',
-//        'penyakit' => 'Penyakit Dalam',
-//        'column' => 'is_dalam'
-//    ),
-//
-//    'urologi' => array(
-//        'kode' => array('PU'),
-//        'label' => 'Poli Urologi',
-//        'penyakit' => 'Urologi',
-//        'column' => 'is_urologi'
-//    ),
     
      'rawat luka' => array(
+        'id' => 55,
         'kode' => array('RL', 'BPJS-RL'),
         'label' => 'Poli Rawat Luka',
         'penyakit' => 'Rawat Luka',
@@ -613,6 +545,7 @@ $config['poli'] = array(
     ),
     
      'sunat' => array(
+        'id' => 56,
         'kode' => array('PS', 'BPJS-PS'),
         'label' => 'Poli Sunat',
         'penyakit' => 'Penyakit Sunat',
