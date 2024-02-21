@@ -52,16 +52,16 @@
                                 <div class="col-sm-4">
                                     <div class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">Tipe Pasien</label>
+                                            <label class="col-sm-4 control-label">Jenis Layanan</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" id="tipe_pasien"
-                                                        name="tipe_pasien">
-                                                    <option value="">-- Tipe Pasien --</option>
+                                                <select class="form-control" id="jenis_pendaftaran"
+                                                        name="jenis_pendaftaran">
+                                                    <option value="">-- Jenis Layanan --</option>
                                                     <?php
                                                     foreach ($jaminan as $key => $value) {
-                                                        $pilih = ($key == $this->input->get('tipe_pasien')) ? "selected" : "";
+                                                        $pilih = ($value['id'] == $this->input->get('jenis_pendaftaran')) ? "selected" : "";
                                                         ?>
-                                                        <option value="<?php echo $key ?>" <?php echo $pilih; ?>><?php echo ucwords($value['label']) ?></option>
+                                                        <option value="<?php echo $value['id'] ?>" <?php echo $pilih; ?>><?php echo ucwords($value['label']) ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>

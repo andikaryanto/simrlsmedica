@@ -56,7 +56,7 @@ class Laporan extends MY_Controller {
 
         $data['jaminan'] = $this->config->item('poli');
 		$data['jumlah_pasien'] = $this->LaporanModel->getJumlahPasien($start_date,$end_date, $jenis_pendaftaran);
-        $data['list_jumlah_pasien'] = $this->LaporanModel->listJumlahPasien($start_date,$end_date,$tipe_pasien)->result();
+        $data['list_jumlah_pasien'] = $this->LaporanModel->listJumlahPasienByJenis($start_date,$end_date, $jenis_pendaftaran)->result();
 
         foreach ($data['list_jumlah_pasien'] as &$d) {
             $d->penyakit = $this->LaporanModel->getSimplePenyakitPemeriksaanByIdPemeriksaan($d->pemeriksaan_id)->result();
@@ -74,10 +74,11 @@ class Laporan extends MY_Controller {
 		$start_date = ($this->input->get('from'))?$this->input->get('from'):date('Y-m-d');
 		$end_date = ($this->input->get('to'))?$this->input->get('to'):date('Y-m-d');
         $tipe_pasien = $this->input->get('tipe_pasien');
+		$jenis_pendaftaran = $this->input->get('jenis_pendaftaran');
 
-        $data['jaminan'] = $this->config->item('pendaftaran');
-		$data['jumlah_pasien_baru'] = $this->LaporanModel->jumlahPasienBaru($start_date,$end_date);
-        $data['list_jumlah_pasien_baru'] = $this->LaporanModel->listJumlahPasienBaru($start_date,$end_date,$tipe_pasien)->result();
+        $data['jaminan'] = $this->config->item('poli');
+		$data['jumlah_pasien_baru'] = $this->LaporanModel->jumlahPasienBaru($start_date,$end_date, $jenis_pendaftaran);
+        $data['list_jumlah_pasien_baru'] = $this->LaporanModel->listJumlahPasienBaruByJenis($start_date,$end_date,$jenis_pendaftaran)->result();
 
         foreach ($data['list_jumlah_pasien_baru'] as &$d) {
             $d->penyakit = $this->LaporanModel->getPenyakitPemeriksaanById($d->pasien_id)->result();
@@ -86,6 +87,7 @@ class Laporan extends MY_Controller {
 		$data['from'] = $start_date;
 		$data['to'] = $end_date;
         $data['tipe_pasien'] = $tipe_pasien;
+        $data['jenis_pendaftaran'] = $jenis_pendaftaran;
 		$this->template->view('laporan/pasien/jumlah_pasien_baru',$data);
 	}
 

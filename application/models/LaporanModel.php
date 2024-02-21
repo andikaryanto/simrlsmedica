@@ -125,7 +125,23 @@ class LaporanModel extends CI_Model {
                                 group by pp.pasien, jp.id");
     }
 
-    public function listJumlahPasien($start_date,$end_date,$tipe_pasien)
+    public function listJumlahPasien($start_date,$end_date,$jenis_pendaftaran)
+    {
+        $w = '';
+        if($jenis_pendaftaran) {
+            $w .= " AND jp.id = $jenis_pendaftaran";
+        }
+
+        return  $this->db->query("SELECT p.*, pp.jaminan, pp.waktu_pendaftaran , p.no_rm, u.nama as nama_dokter, p.id as pasien_id, pem.id as pemeriksaan_id
+                                from pasien p 
+                                join pendaftaran_pasien pp ON pp.pasien = p.id  AND pp.is_active = '1'
+                                JOIN pemeriksaan pem ON pem.pendaftaran_id = pp.id
+                                join jenis_pendaftaran jp ON jp.id = pp.jenis_pendaftaran_id AND jp.is_active = '1' AND jp.status = 1
+                                join user u ON u.id = pem.dokter_id AND u.is_active = '1'
+                                WHERE pp.waktu_pendaftaran >= '$start_date' AND pp.waktu_pendaftaran <= '$end_date' $w");
+    }
+
+    public function listJumlahPasienByJenis($start_date,$end_date,$tipe_pasien)
     {
         $w = $tipe_pasien ? " AND pp.jaminan = '$tipe_pasien'" : '';
         return  $this->db->query("SELECT p.*, pp.jaminan, pp.waktu_pendaftaran , p.no_rm, u.nama as nama_dokter, p.id as pasien_id, pem.id as pemeriksaan_id
@@ -149,15 +165,36 @@ class LaporanModel extends CI_Model {
                                 AND p.created_at >= '$start_date' AND p.created_at <= '$end_date'");
     }
 
-    public function jumlahPasienBaru($start_date,$end_date)
+    public function listJumlahPasienBaruByJenis($start_date,$end_date,$jenis_pendaftaran)
     {
+        $w = '';
+        if($jenis_pendaftaran) {
+            $w .= " AND jp.id = $jenis_pendaftaran ";
+        }
+
+        return  $this->db->query("SELECT p.*, pp.jaminan, jp.nama as nama_jenis_pendaftaran, pp.waktu_pendaftaran , p.no_rm, u.nama as nama_dokter, p.usia, p.alamat, p.id as pasien_id
+                                from pasien p 
+                                join pendaftaran_pasien pp ON pp.pasien = p.id  AND pp.is_active = '1'
+                                JOIN pemeriksaan pem ON pem.pendaftaran_id = pp.id
+                                join jenis_pendaftaran jp ON jp.id = pp.jenis_pendaftaran_id AND jp.is_active = '1' AND jp.status = 1
+                                join user u ON u.id = pem.dokter_id AND u.is_active = '1'
+                                WHERE pp.waktu_pendaftaran >= '$start_date' AND pp.waktu_pendaftaran <= '$end_date' $w
+                                AND p.created_at >= '$start_date' AND p.created_at <= '$end_date'");
+    }
+
+    public function jumlahPasienBaru($start_date,$end_date, $jenis_pendaftaran)
+    {
+        $w = '';
+        if($jenis_pendaftaran) {
+            $w .= " AND jp.id = $jenis_pendaftaran ";
+        }
         return  $this->db->query(" 
-            SELECT count(distinct pp.pasien) as jumlah, pp.jaminan as nama, jp.id as id_jp from jenis_pendaftaran jp 
+            SELECT count(distinct pp.pasien) as jumlah, jp.nama as nama, jp.id as id_jp from jenis_pendaftaran jp 
             join pendaftaran_pasien pp ON jp.id = pp.jenis_pendaftaran_id 
             join pasien p on pp.pasien = p.id 
             WHERE jp.is_active = 1 AND jp.status = 1 AND pp.waktu_pendaftaran >= '$start_date' AND pp.waktu_pendaftaran <= '$end_date'
-            AND p.created_at >= '$start_date' AND p.created_at <= '$end_date'
-            group by pp.jaminan");
+            AND p.created_at >= '$start_date' AND p.created_at <= '$end_date' $w
+            group by jp.id");
     }
 
     public function listJumlahPasien20($start_date,$end_date,$jenis_pendaftaran)
